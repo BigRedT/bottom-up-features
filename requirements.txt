@@ -8,6 +8,6 @@ matplotlib
 pyyaml
 tensorboardX
 tqdm
-torchvision
+torchvision==0.2.0
 
 

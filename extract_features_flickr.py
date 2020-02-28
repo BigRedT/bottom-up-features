@@ -1,5 +1,6 @@
 import _init_paths
 import os
+import json
 import h5py
 import numpy as np
 import cv2
@@ -30,7 +31,9 @@ def parse_args():
     parser.add_argument('--boxes', dest='save_boxes',
                         help='save bounding boxes',
                         action='store_true')
-
+    parser.add_argument('--det_input_json', dest='det_input_json',
+                        help='path to det_input_<subset>.json file',
+                        default=None, type=str)
     args = parser.parse_args()
     return args
 
@@ -64,7 +67,8 @@ if __name__ == '__main__':
         print('Model is loaded.')
 
         # Load images.
-        imglist = os.listdir(args.image_dir)
+        imglist = [v['path'].split('/')[-1] for v in json.load(open(args.det_input_json,'r'))]
+        #imglist = os.listdir(args.image_dir)
         num_images = len(imglist)
         print('Number of images: {}.'.format(num_images))
 
